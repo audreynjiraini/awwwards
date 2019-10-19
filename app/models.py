@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from phone_field import PhoneField
 
 
 # Create your models here.
@@ -27,3 +28,16 @@ class Project(models.Model):
     
     def __str__(self):
         return self.title
+    
+    
+    
+class Contact(models.Model):
+    
+    profile = models.OneToOneField(Profile, on_delete = models.CASCADE)
+    phone_number = PhoneField(blank = False, help_text = 'Contact phone number')
+    email = models.EmailField(blank = False)
+    github = models.CharField(max_length = 70, null = True)
+    
+    
+    def __str__(self):
+        return self.profile.username

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'bootstrap4',
     'tinymce',
+    'phone_field',
 ]
 
 MIDDLEWARE = [
