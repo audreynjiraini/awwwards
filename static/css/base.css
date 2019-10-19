@@ -1,3 +1,6 @@
 body {
     background-image: url('/background/2.jpg');
+    min-height: 100%;
+    min-width: 100%;
+    background-size:100%
 }
