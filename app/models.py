@@ -13,3 +13,17 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.user.username
+    
+    
+    
+class Project(models.Model):
+    
+    title = models.CharField(max_length = 50)
+    image = models.ImageField(upload_to = 'projects/')
+    description = models.TextField()
+    link = models.CharField(max_length = 200)
+    author = models.ForeignKey(Profile, on_delete = models.CASCADE)
+    
+    
+    def __str__(self):
+        return self.title
