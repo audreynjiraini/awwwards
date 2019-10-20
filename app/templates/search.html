@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
-{% load staticfiles %}
+{% load static %}
 
 
 {% block content %}
@@ -21,9 +21,36 @@
 
             {% for project in projects %}
 
-                <div class = "col-sm-6 col-md-3">
-                    <img src = "{{project.profile_photo.url}}" alt = "" class = "img-responsive">
-                </div>
+                <!-- <div class = "col-sm-6 col-md-3">
+                    <img src = "{{project.image.url}}" alt = "" class = "img-responsive">
+                </div> -->
+
+                <a href="{% url 'project_view' project.id %}">
+                    <div class="project-card">
+                        <div class="image">
+                            <img src="{{ project.image.url }}" alt="{{ project.name }}">
+                        </div>
+
+                        <div class="project-desc">
+                            <div class="author">
+                                <div class="avatar-sm">
+                                    <img src="{{ project.author.avatar.url }}" alt="">
+                                </div>
+
+                                <p>{{ project.author.user.first_name }} {{ project.author.user.last_name }}</p>
+                            </div>
+
+                            <h4>{{ project.name }}</h4>
+
+                            <div class="languages">
+                                {% for lang in project.language.all  %}
+                                <p>#{{ lang.language }}</p>
+                                {% endfor %}
+                            </div>
+        
+                        </div>        
+                    </div>        
+                </a>
             
             {% endfor %}
 

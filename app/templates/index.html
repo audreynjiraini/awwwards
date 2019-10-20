@@ -1,12 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load staticfiles %}
+
+
+{% block styles %}
+{{block.super}}
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+{% endblock styles %}
+
 
 {% block content %}
 {{block.super}}
 
 <div class="container">
     <h1 class = "text-center">Welcome to AudRate</h1>
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-md-6">
+            <div class="card">
+                <a href="{% url 'project_view project.id' %}">
+                    <div class="card-title">
+                        <img src="{{ project.author.avatar.url }}" alt="author-avatar">
+                        <h4>{{ project.title }}</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                    </div>
+
+                    <div class="project-description">
+                        <div class="author">
+                            <p>{{ project.author.user.first_name }} {{ project.author.user.last_name }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock content %}
