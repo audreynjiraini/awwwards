@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+
+{% block content %}
+{{block.super}}
+
+<div class = "container">
+    <div class = "row">
+        {% if projects %}
+
+            <h2>Found {{projects|length }} of searched term {{message}}</h2>
+        {% else %}
+            <h2> Found 0 projects for the search term {{message}}</h2>
+        {% endif %}
+    </div>
+
+    <div class = "row">
+        {% if projects %}
+
+            {% for project in projects %}
+
+                <div class = "col-sm-6 col-md-3">
+                    <img src = "{{project.profile_photo.url}}" alt = "" class = "img-responsive">
+                </div>
+            
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock content %}
