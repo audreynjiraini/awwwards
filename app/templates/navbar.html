@@ -1,41 +1,49 @@
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class = "navbar navbar-expand-lg navbar-dark bg-dark">
 
     <!-- Navbar brand -->
-    <a class="navbar-brand font-weight-bold" href="{% url 'index' %}">AudRate</a>
+    <a class = "navbar-brand font-weight-bold" href = "{% url 'index' %}">AudRate</a>
     
     <!-- Collapse button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-        aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "#basicExampleNav"
+        aria-controls = "basicExampleNav" aria-expanded = "false" aria-label = "Toggle navigation">
+        <span class = "navbar-toggler-icon"></span>
     </button>
     
     <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="basicExampleNav">
+    <div class = "collapse navbar-collapse" id = "basicExampleNav">
     
         <!-- Links -->
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'index' %}">Home
-                <span class="sr-only">(current)</span></a>
+        <ul class = "navbar-nav mr-auto">
+            <li class = "nav-item active">
+                <a class = "nav-link" href = "{% url 'index' %}">Home
+                <span class = "sr-only">(current)</span></a>
 
                 {% if current_user.is_authenticated %}
-                <li><a class="nav-item" href="{% url 'new-project' %}">Submit a project for review</a></li>
-                <li> <a href="{% url 'myprofile' %}">Profile</a></li>
-                <a href="/accounts/password/change">Change Password</a>
-                <li> <a href="/logout">Logout</a></li>
+                <li><a class = "nav-item" href = "{% url 'new-project' %}">Submit a project for review</a></li>
+                <li> <a href = "{% url 'myprofile' %}">Profile</a></li>
+                <a href = "/accounts/password/change">Change Password</a>
+                <li> <a href = "/logout">Logout</a></li>
                 {% endif %}
 
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/accounts/login">Login</a>
+            <li class = "nav-item">
+                <a class = "nav-link" href = "/accounts/login">Login</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/accounts/register">Register</a>
+            <li class = "nav-item">
+                <a class = "nav-link" href = "/accounts/register">Register</a>
             </li>
     
         </ul>
         <!-- Links -->
+
+        <!-- Search form -->
+        <form class = "form-inline" action = "{% url 'search_results' %}">
+            <div class = "md-form my-0">
+                <input class = "form-control mr-sm-2" type = "text" placeholder = "Search" aria-label = "Search" name  =  "project">
+            </div>
+        </form>
+        <!-- End of search form -->
 
     </div>
     <!-- End of collapsible content -->

@@ -13,8 +13,9 @@ class Profile(models.Model):
     
     
     def __str__(self):
+        
         return self.user.username
-    
+     
     
     
 class Project(models.Model):
@@ -24,11 +25,20 @@ class Project(models.Model):
     description = models.TextField()
     link = models.CharField(max_length = 200)
     author = models.ForeignKey(Profile, on_delete = models.CASCADE)
+    pub_date = models.DateTimeField(auto_now_add = True)
     
     
     def __str__(self):
+        
         return self.title
     
+    
+    @classmethod
+    def search_by_title(cls, search_term):
+        projects = cls.objects.filter(title__icontains = search_term)
+        
+        return projects
+   
     
     
 class Contact(models.Model):
@@ -40,4 +50,5 @@ class Contact(models.Model):
     
     
     def __str__(self):
+        
         return self.profile.username
