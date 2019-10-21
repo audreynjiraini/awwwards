@@ -91,3 +91,13 @@ def new_project(request):
         project_form = ProjectForm()
 
     return render(request, 'new_project.html', {'title': title, 'project_form': project_form})
+
+
+@login_required(login_url = '/accounts/login/')
+def project_view(request):
+    
+    current_user = request.user
+    project = Project.objects.filter(pk = id).first()
+    title = f'{project.title} by {project.author.user.first_name}'
+
+    return render(request, 'project_view.html', {'title': title, 'project': project})
