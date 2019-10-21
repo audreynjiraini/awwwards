@@ -13,3 +13,9 @@ class ContactUpdateForm(forms.ModelForm):
     class Meta:
         model = Contact
         exclude = []
+        
+        
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ['user']
