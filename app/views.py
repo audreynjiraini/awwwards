@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.views.generic import RedirectView
 from .forms import *
-from .serializer import *
 
 
 # Create your views here.
@@ -65,11 +64,11 @@ def update_profile(request):
          
          return redirect('myprofile')
      
-   else:
-      profile_form = ProfileUpdateForm(instance = current_user.profile)
-      contact_form = ContactUpdateForm()
+    else:
+        profile_form = ProfileUpdateForm(instance = current_user.profile)
+        contact_form = ContactUpdateForm()
 
-   return render(request, 'update_profile.html', {'title': title, 'profile_form': profile_form, 'contact_form': contact_form})
+    return render(request, 'update_profile.html', {'title': title, 'profile_form': profile_form, 'contact_form': contact_form})
 
 
 @login_required(login_url = '/accounts/login/')

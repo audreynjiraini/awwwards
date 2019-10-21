@@ -6,7 +6,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url('', views.index, name = 'index'),
-    url(r'^search/', views.search_results, name = 'search_results')
+    url(r'^search/', views.search_results, name = 'search_results'),
+    url('profile/', views.myprofile, name = 'profile'),
+    url('profile/update', views.update_profile, name = 'update_profile'),
+    url('project/new', views.new_project, name = 'new_project'),
+    url('project/view/<int:id>', views.project_view, name = 'project_view'),
 ]
 
 
