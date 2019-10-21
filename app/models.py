@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from phone_field import PhoneField
+from tinymce.models import HTMLField
 
 
 # Create your models here.
@@ -21,7 +22,7 @@ class Project(models.Model):
     
     title = models.CharField(max_length= 50)
     image = models.ImageField(upload_to= 'projects/')
-    description = models.TextField()
+    description = HTMLField()
     link = models.CharField(max_length= 200)
     author = models.ForeignKey(Profile, on_delete= models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add= True)
@@ -40,7 +41,6 @@ class Project(models.Model):
     
 class Contact(models.Model):
     
-    # profile = models.OneToOneField(Profile, on_delete= models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete= models.CASCADE)
     phone_number = PhoneField(blank= False, help_text= 'Contact phone number')
     email = models.EmailField(blank= False)
