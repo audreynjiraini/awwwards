@@ -44,3 +44,29 @@ def myprofile(request):
     title = f'{current_user.first_name} {current_user.last_name}'
     
     return render(request, 'myprofile.html',{'projects': projects, 'title': title})
+
+
+@login_required(login_url = '/accounts/login/')
+def update_profile(request):
+    
+    current_user = request.user
+    title = f'Edit {current_user.first_name} {current_user.last_name}\'s Profile'
+    
+    if request.method == 'POST':
+      profile_form = ProfileUpdateForm(request.POST, request.FILES,instance = current_user.profile)
+      contact_form = ContactUpdateForm(request.POST)
+      
+      if profile_form.is_valid() and contact_form.is_valid():
+         profile_form.save()
+         
+         contact = contact_form.save(commit = False)
+         contact.profile = current_user.profile
+         contact.save()
+         
+         return redirect('myprofile')
+     
+   else:
+      profile_form = ProfileUpdateForm(instance = current_user.profile)
+      contact_form = ContactUpdateForm()
+
+   return render(request, 'update_profile.html', {'title': title, 'profile_form': profile_form, 'contact_form': contact_form})
