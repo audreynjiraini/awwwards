@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^profile/update', views.update_profile, name = 'update_profile'),
     url(r'^project/new', views.new_project, name = 'new_project'),
     url(r'^project/view/<int:id>/$', views.project_view, name = 'project_view'),
+    url(r'^api/profiles/$',views.ProfileList.as_view()),
+    url(r'^api/projects/$',views.ProjectList.as_view()),
 ]
 
 

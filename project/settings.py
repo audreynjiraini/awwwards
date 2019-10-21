@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     'tinymce',
     'phone_field',
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -138,3 +140,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = '/'
 
 django_heroku.settings(locals())
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}

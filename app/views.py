@@ -6,6 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.views.generic import RedirectView
 from .forms import *
+from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import *
+from rest_framework import status
+from .permissions import IsAdminOrReadOnly
 
 
 # Create your views here.
@@ -100,3 +106,45 @@ def project_view(request, id):
     title = f'{project.title} by {project.author.user.first_name}'
 
     return render(request, 'project_view.html', {'title': title, 'project': project})
+
+
+class ProfileList(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+    
+    def get(self, request, format = None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles, many = True)
+        
+        return Response(serializers.data)
+    
+    
+    def post(self, request, format = None):
+        serializers = ProfileSerializer(data = request.data)
+        
+        if serializers.is_valid():
+            serializers.save()
+            
+            return Response(serializers.data, status = status.HTTP_201_CREATED)
+        
+        return Response(serializers.errors, status = status.HTTP_400_BAD_REQUEST)
+
+
+class ProjectList(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+    
+    def get(self, request, format = None):
+        all_projects = Project.objects.all()
+        serializers = ProjectSerializer(all_projects, many = True)
+        
+        return Response(serializers.data)
+    
+    
+    def post(self, request, format = None):
+        serializers = ProjectSerializer(data = request.data)
+        
+        if serializers.is_valid():
+            serializers.save()
+            
+            return Response(serializers.data, status = status.HTTP_201_CREATED)
+        
+        return Response(serializers.errors, status = status.HTTP_400_BAD_REQUEST)
