@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block styles %}
+{{block.super}}
+
+<link rel="stylesheet" href="{% static 'css/project_view.css' %}">
+
+{% endblock styles %}
+
+
+{% block content %}
+{{block.super}}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <img src="{{ project.author.avatar.url }}" alt="">
+                <h1 class="title">{{ project.title }} <a href="{{ project.link }}"></a></h1>
+            </div>
+            <br>
+
+            <img src="{{ project.image.url }}" alt="">
+            <p>{{ project.author.user.first_name }} {{ project.author.user.last_name }}</p>
+            <h5>{{ project.pub_date| date }}</h5>
+        </div>
+
+        <div class="col-md-6">
+            <div class="project-description">
+                <p>{{ project.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
