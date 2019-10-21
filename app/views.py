@@ -12,12 +12,9 @@ from django.views.generic import RedirectView
 def index(request):
     
     title = 'AudRate'
-    
-    context = {
-        'title': title,
-    }
+    projects = Project.objects.all()
             
-    return render(request, 'index.html', context)
+    return render(request, 'index.html', {'title': title, 'projects': projects})
 
 
 
