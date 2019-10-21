@@ -70,3 +70,24 @@ def update_profile(request):
       contact_form = ContactUpdateForm()
 
    return render(request, 'update_profile.html', {'title': title, 'profile_form': profile_form, 'contact_form': contact_form})
+
+
+@login_required(login_url = '/accounts/login/')
+def new_project(request):
+    
+    current_user = request.user
+    title = 'New Project'
+
+    if request.method == 'POST':
+        project_form = ProjectForm(request.POST, request.FILES)
+        
+        if project_form.is_valid():
+            project = project_form.save(commit = False)
+            project.author = current_user.profile
+            project.save()
+            
+            return redirect('index')
+    else:
+        project_form = ProjectForm()
+
+    return render(request, 'new_project.html', {'title': title, 'project_form': project_form})
