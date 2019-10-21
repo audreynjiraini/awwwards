@@ -93,10 +93,10 @@ def new_project(request):
 
 
 @login_required(login_url = '/accounts/login/')
-def project_view(request):
+def project_view(request, id):
     
     current_user = request.user
-    project = Project.objects.filter(pk = id).first()
+    project = Project.objects.get(pk = id)
     title = f'{project.title} by {project.author.user.first_name}'
 
     return render(request, 'project_view.html', {'title': title, 'project': project})

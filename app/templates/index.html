@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load staticfiles %}
 
 
 {% block styles %}
 {{block.super}}
-
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
 
 {% endblock styles %}
 
@@ -19,7 +18,7 @@
         {% for project in projects %}
         <div class="col-md-6">
             <div class="card">
-                <a href="{% url 'project_view project.id' %}">
+                <a href="{% url 'project_view' %}">
                     <div class="card-title">
                         <img src="{{ project.author.avatar.url }}" alt="author-avatar">
                         <h4>{{ project.title }}</h4>
