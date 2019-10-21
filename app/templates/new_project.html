@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block styles %}
+{{block.super}}
+
+<link rel="stylesheet" href="{% static 'css/new_project.css' %}">
+
+{% endblock styles %}
+
+
+{% block content %}
+{{block.super}}
+
+<div class="container">
+    <div class="row">
+        <!-- Empty div -->
+        <div class="col-md-2"></div>
+        <!-- End of empty div -->
+
+        <div class="col-md-8">
+            <div class="card">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% bootstrap_form form %}
+                    <button class="btn btn-secondary" type="submit">Submit Project</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Empty div -->
+        <div class="col-md-2"></div>
+        <!-- End of empty div -->
+
+    </div>
+</div>
+
+{% endblock content %}
