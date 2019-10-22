@@ -1,5 +1,5 @@
 body {
-    background-image: url('/avatars/2.jpg');
+    background: url("/static/background/bg2.jpg") no-repeat;
     min-height: 100%;
     min-width: 100%;
     background-size:100%

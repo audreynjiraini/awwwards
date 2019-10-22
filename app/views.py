@@ -27,8 +27,10 @@ def index(request):
 def search_results(request):
 
     if 'project' in request.GET and request.GET["project"]:
+        
         search_term = request.GET.get("project")
         searched_projects = Project.search_by_title(search_term)
+        
         message = f"{search_term}"
 
         return render(request, 'search.html', {"message": message, "projects": searched_projects})
@@ -45,10 +47,10 @@ def myprofile(request):
     current_user = request.user
     author = current_user
     
-    projects = Project.objects.filter(author)
+    projects = Project.objects.filter(author = current_user.profile)
     title = f'{current_user.first_name} {current_user.last_name}'
     
-    return render(request, 'myprofile.html',{'projects': projects, 'title': title})
+    return render(request, 'myprofile.html', {'projects': projects, 'title': title})
 
 
 @login_required(login_url = '/accounts/login/')
@@ -102,8 +104,14 @@ def new_project(request):
 def project_view(request, id):
     
     current_user = request.user
-    project = Project.objects.get(pk = id)
+    project = Project.objects.filter(pk = id).first()
     title = f'{project.title} by {project.author.user.first_name}'
+    
+    try:
+        project = Project.objects.get(pk = id)
+        
+    except Project.DoesNotExist:
+        raise Http404("Sorry. The project does not exist.")
 
     return render(request, 'project_view.html', {'title': title, 'project': project})
 
