@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load staticfiles %}
+{% load bootstrap4 %}
 
 
 {% block styles %}
@@ -23,7 +24,7 @@
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
 
-                    {% bootstrap_form form %}
+                    {% bootstrap_form project_form %}
                     <button class="btn btn-secondary" type="submit">Submit Project</button>
                 </form>
             </div>

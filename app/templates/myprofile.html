@@ -12,7 +12,7 @@
 {% block content %}
 {{block.super}}
 
-{% if current_user.is_authenticated %}
+{% if user.is_authenticated %}
 
 <div class="container">
     <div class="profile-description">
@@ -29,7 +29,7 @@
     <br>
 
     <a href="{% url 'update_profile' %}"><button class='btn btn-dark'>Edit Profile</button></a>
-    <a href="{% url 'logout' %}"><button class='btn btn-dark'>Logout</button></a>
+    <a href="/logout"><button class='btn btn-dark'>Logout</button></a>
 </div>
 
 <div class="container">
@@ -41,15 +41,15 @@
                 <a href="{% url 'project_view' project.id %}">
                 
                     <div class="card-title">
-                        <img src="{{ project.author.avatar.url }}" alt="">
-                        <h4>{{ project.title }}</h4>
-                    </div>
-
-                    <div class="card-body">
                         <img src="{{ project.image.url }}" alt="{{ project.title }}">
                     </div>
+                            
+                    <div class="card-body">
+                        <a href="/project/{{ project.id }}"> <h4>{{ project.title }} </h4> </a>
+                        <p> Project by : <strong> {{ project.author.user.username }} </strong> </p>
+                    </div>
 
-                    <p>{{ project.author.user.first_name }} {{ project.author.user.last_name }}</p>
+                    
 
                 </a>
             </div>

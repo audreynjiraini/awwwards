@@ -20,8 +20,9 @@ def index(request):
     
     title = 'AudRate'
     projects = Project.objects.all()
+    
             
-    return render(request, 'index.html', {'title': title, 'projects': projects})
+    return render(request, 'index.html', {"projects": projects, "title": title})
 
 
 def search_results(request):
@@ -36,7 +37,7 @@ def search_results(request):
         return render(request, 'search.html', {"message": message, "projects": searched_projects})
 
     else:
-        message = "You haven't searched for any term"
+        message = "You haven't searched for any project"
         
         return render(request, 'search.html', {"message": message})
     
@@ -44,11 +45,11 @@ def search_results(request):
 @login_required(login_url = '/accounts/login/')
 def myprofile(request):
     
-    current_user = request.user
-    author = current_user
+    user = request.user
+    # author = user.profile
     
-    projects = Project.objects.filter(author = current_user.profile)
-    title = f'{current_user.first_name} {current_user.last_name}'
+    projects = Project.objects.filter(author = user.profile)
+    title = f'{user.first_name} {user.last_name}'
     
     return render(request, 'myprofile.html', {'projects': projects, 'title': title})
 
@@ -56,24 +57,24 @@ def myprofile(request):
 @login_required(login_url = '/accounts/login/')
 def update_profile(request):
     
-    current_user = request.user
-    title = f'Edit {current_user.first_name} {current_user.last_name}\'s Profile'
+    user = request.user
+    title = f'Edit {user.first_name} {user.last_name}\'s Profile'
     
     if request.method == 'POST':
-      profile_form = ProfileUpdateForm(request.POST, request.FILES,instance = current_user.profile)
+      profile_form = ProfileUpdateForm(request.POST, request.FILES,instance = user.profile)
       contact_form = ContactUpdateForm(request.POST)
       
       if profile_form.is_valid() and contact_form.is_valid():
          profile_form.save()
          
          contact = contact_form.save(commit = False)
-         contact.profile = current_user.profile
+         contact.profile = user.profile
          contact.save()
          
          return redirect('myprofile')
      
     else:
-        profile_form = ProfileUpdateForm(instance = current_user.profile)
+        profile_form = ProfileUpdateForm(instance = user.profile)
         contact_form = ContactUpdateForm()
 
     return render(request, 'update_profile.html', {'title': title, 'profile_form': profile_form, 'contact_form': contact_form})
@@ -82,7 +83,7 @@ def update_profile(request):
 @login_required(login_url = '/accounts/login/')
 def new_project(request):
     
-    current_user = request.user
+    user = request.user
     title = 'New Project'
 
     if request.method == 'POST':
@@ -90,7 +91,7 @@ def new_project(request):
         
         if project_form.is_valid():
             project = project_form.save(commit = False)
-            project.author = current_user.profile
+            project.author = user.profile
             project.save()
             
             return redirect('index')
@@ -100,20 +101,18 @@ def new_project(request):
     return render(request, 'new_project.html', {'title': title, 'project_form': project_form})
 
 
-@login_required(login_url = '/accounts/login/')
-def project_view(request, id):
+
+def project_view(request,project_id):
     
-    current_user = request.user
-    project = Project.objects.filter(pk = id).first()
-    title = f'{project.title} by {project.author.user.first_name}'
+    project = Project.objects.filter(pk = project_id)
     
     try:
-        project = Project.objects.get(pk = id)
+        project = Project.objects.get(pk = project_id)
         
     except Project.DoesNotExist:
         raise Http404("Sorry. The project does not exist.")
 
-    return render(request, 'project_view.html', {'title': title, 'project': project})
+    return render(request, 'project_view.html', { 'project': project})
 
 
 class ProfileList(APIView):

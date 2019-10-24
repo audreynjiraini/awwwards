@@ -12,8 +12,8 @@
 {% block content %}
 {{block.super}}
 
-<div class = "container">
-    <div class = "row">
+<div class="container">
+    <div class="row">
         {% if projects %}
 
             <h2>Found {{projects|length }} of searched term {{message}}</h2>
@@ -22,29 +22,16 @@
         {% endif %}
     </div>
 
-    <div class = "row">
+    <div class="row">
         {% if projects %}
 
             {% for project in projects %}
 
                 <a href="{% url 'project_view' project.id %}">
-                    <div class="project-card">
+                    <div class=" card project-card">
                         <div class="image">
                             <img src="{{ project.image.url }}" alt="{{ project.name }}">
                         </div>
-
-                        <div class="project-desc">
-                            <div class="author">
-                                <div class="avatar-sm">
-                                    <img src="{{ project.author.avatar.url }}" alt="">
-                                </div>
-
-                                <p>{{ project.author.user.first_name }} {{ project.author.user.last_name }}</p>
-                            </div>
-
-                            <h4>{{ project.name }}</h4>
-        
-                        </div>        
                     </div>        
                 </a>
             

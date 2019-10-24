@@ -15,15 +15,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <div>
-                <img src="{{ project.author.avatar.url }}" alt="">
+            <div style="display:flex; flex-direction: right;">
+                <img style="border-radius: 100%" width="20%;"  src="{{ project.author.avatar.url }}" alt="">
                 <h1 class="title">{{ project.title }} <a href="{{ project.link }}"></a></h1>
             </div>
-            <br>
+            <br><br>
 
-            <img src="{{ project.image.url }}" alt="">
-            <p>{{ project.author.user.first_name }} {{ project.author.user.last_name }}</p>
-            <h5>{{ project.pub_date| date }}</h5>
+            <img width="100%;" src="{{ project.image.url }}" alt="">
+            <br><br>
+            <h5> Project by : <strong> {{ project.author.user.username }} </strong> </h5>
+            <p>Posted on: {{ project.pub_date| date }}</p>
+            <p>View live site <a href="{{ project.link }}">here</a></p>
         </div>
 
         <div class="col-md-6">

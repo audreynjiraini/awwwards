@@ -1,8 +1,9 @@
-body {
-    background: url("/static/background/bg2.jpg") no-repeat;
-    min-height: 100%;
-    min-width: 100%;
-    background-size:100%
+#img.source-image {
+    background: url("/static/background/bg2.jpg");
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .card {
@@ -20,4 +21,13 @@ body {
 i {
     font-size: 1.3em;
     color: #000;
- }
+}
+
+.text-white {
+    color: white;
+    /* font-family: 'Lato', sans-serif; */
+    font-family: 'Cinzel', serif;
+}
+form {
+    margin-top: 6%;
+}
