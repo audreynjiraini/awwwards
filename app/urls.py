@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^api-token-auth/', obtain_auth_token),
     url(r'^api/profiles/', views.ProfileList.as_view()),
     url(r'^api/projects/', views.ProjectList.as_view()),
+    url(r'^ratings/', include('star_ratings.urls', namespace = 'ratings', app_name = 'ratings')),
 ]
 
 

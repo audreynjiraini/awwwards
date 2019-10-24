@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'phone_field',
     'rest_framework',
     'rest_framework.authtoken',
+    'star_ratings',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'django.core.context_processors.request',
             ],
         },
     },
@@ -151,3 +153,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
+
+
+STAR_RATINGS_RERATE = False
+STAR_RATINGS_RANGE = 10

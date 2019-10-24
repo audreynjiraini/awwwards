@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load staticfiles %}
+{% load ratings %}
 
 
 {% block styles %}
@@ -33,6 +34,8 @@
                 <p>{{ project.description }}</p>
             </div>
         </div>
+
+        {% ratings project %}
     </div>
 </div>
 
